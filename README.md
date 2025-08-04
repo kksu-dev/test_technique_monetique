@@ -61,6 +61,21 @@ url = jdbc:postgresql://localhost:5432/ISO8583_BD
 username = admin
 password = admin
 ```
+## Création et Import du schéma de base de donnée
+``` 
+#Création de la Base de donnée
+createdb -U user ISO8583_BD
+
+user = utilisateur PostgreSQL qui exécute la commande
+ISO8583_BD = Nom de la base à créer
+
+#Import du schema 
+psql -U user -d ISO8583_BD -f iso8583_bd.sql
+
+user = utilisateur PostgreSQL qui exécute la commande
+ISO8583_BD = la base cible dans laquelle on veut se connecter
+iso8583_bd.sql = Contient les commandes SQL à executer
+```
 ---
 
 ## 🚀 Lancer le projet localement
