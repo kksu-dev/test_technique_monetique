@@ -21,20 +21,6 @@
           <input #fileInput id="fileInput" accept=".xml" type="file" class="form-control" (change)="onFileSelected($event)"/>
         </div>
 
-
-        <!--<ngx-file-drop (onFileDrop)="onFileDropped($event)">
-          <ng-template ngx-file-drop-content-tmp>
-            <div class="drop-zone" (click)="triggerFileInput()">
-              <p>🖱 Clique ou 🤏 Glisse-dépose ton fichier ici</p>
-              <p><small>(XML uniquement, bien sûr 😎)</small></p>
-            </div>
-          </ng-template>
-        </ngx-file-drop>
-
-        <input #fileInput type="file" accept=".xml" (change)="onFileSelected($event)" hidden />-->
-
-
-
         <div class="row mt-4" *ngIf="selectedFile">
           <div class="col-md-6">
             <h5>Aperçu brut :</h5>

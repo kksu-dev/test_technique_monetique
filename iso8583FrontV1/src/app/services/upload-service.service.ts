@@ -31,7 +31,7 @@ export interface PaginatedResponse<T> {
 })
 export class UploadServiceService {
 
-  private baseUrl = 'http://localhost:8080/api/messages';
+  private baseUrl = 'http://localhost:8080/api/v1/messages';
 
   //Méthode pour envoyé le header avec authentification basic
   private getAuthHeaders(): HttpHeaders {
