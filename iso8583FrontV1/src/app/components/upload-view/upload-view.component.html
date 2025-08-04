@@ -21,7 +21,7 @@
 
         <div class="mb-3">
           <label for="fileInput" class="form-label fw-semibold">Sélectionnez un fichier ISO :</label>
-          <input #fileInput id="fileInput" type="file" class="form-control" (change)="onFileSelected($event)"/>
+          <input #fileInput id="fileInput" accept=".xml" type="file" class="form-control" (change)="onFileSelected($event)"/>
         </div>
 
         <div class="row mt-4" *ngIf="selectedFile">

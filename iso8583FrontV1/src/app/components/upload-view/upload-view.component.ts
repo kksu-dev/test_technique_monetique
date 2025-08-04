@@ -275,7 +275,8 @@ export class UploadViewComponent {
       if (result.isConfirmed) {
         this.uploadService.deleteMessage(id).subscribe({
           next: () => {
-            this.messages = this.messages.filter(msg => msg.id !== id);
+            //this.messages = this.messages.filter(msg => msg.id !== id);
+            this.loadMessages();
             Swal.fire(
               'Supprimé !',
               'Le message a été supprimé avec succès.',
