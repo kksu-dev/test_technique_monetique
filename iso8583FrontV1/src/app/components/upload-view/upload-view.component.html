@@ -1,0 +1,148 @@
+<div class="container-fluid">
+  <div class="text-center mt-5" style="z-index: 2;">
+    <h1 class="fw-bold fs-3">Analysez vos fichiers ISO 8583</h1>
+    <p class="text-secondary fs-6">
+      Le format ISO 8583 est utilisé pour les transactions monétiques, comme celles effectuées par carte bancaire.
+    </p>
+    <p class="fst-italic text-muted fs-6">
+      Grâce à cet outil, vous pouvez uploader un fichier ISO et visualiser les données internes.<br/>
+      <strong>Simple, rapide, efficace.</strong>
+    </p>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-md-4" style="min-height: 350px;">
+      <div class="position-relative p-0">
+        <div
+          class="background-blur"
+        >
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-8">
+
+      <div class="card shadow-sm p-4 mb-0">
+        <h2 class="mb-4 text-primary text-center">Uploader un fichier ISO 8583</h2>
+
+        <div class="mb-3">
+          <label for="fileInput" class="form-label fw-semibold">Sélectionnez un fichier ISO :</label>
+          <input id="fileInput" type="file" class="form-control" (change)="onFileSelected($event)"/>
+        </div>
+
+        <div class="row mt-4" *ngIf="selectedFile">
+          <div class="col-md-6">
+            <h5>Aperçu brut :</h5>
+            <pre class="bg-light p-3 rounded border overflow-auto" style="max-height: 300px;">{{ fileContent }}</pre>
+          </div>
+
+          <div class="col-md-6" *ngIf="parsedFields.length">
+            <h5>Champs décodés :</h5>
+            <div class="table-responsive custom-table" style="max-height: 300px; overflow-y: auto;">
+              <table class="table table-sm table-hover table-bordered">
+                <thead class="table-primary">
+                <tr>
+                  <th>Code</th>
+                  <th>Description</th>
+                  <th>Valeur</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let field of parsedFields">
+                  <td>{{ field.id }}</td>
+                  <td>{{ field.label }}</td>
+                  <td>{{ field.value }}</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn btn-primary mt-2" (click)="onUpload()" [disabled]="!selectedFile">
+          📎 Envoyer
+        </button>
+
+      </div>
+
+    </div>
+  </div>
+
+  <div class="card shadow-sm p-4 mt-5 mb-5">
+    <h2 class="text-center text-primary mb-4">Liste des messages ISO 8583</h2>
+
+    <div *ngIf="loading" class="text-center my-3">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Chargement...</span>
+      </div>
+    </div>
+
+    <div *ngIf="error" class="alert alert-danger text-center">{{ error }}</div>
+
+    <div class="table-responsive">
+      <table *ngIf="!loading && messages.length"
+             class="table table-striped table-hover table-bordered align-middle text-center custom-table">
+        <thead class="table-primary">
+        <tr>
+          <th>ID</th>
+          <th>MTI</th>
+          <th>PAN</th>
+          <th>PROCESSING CODE</th>
+          <th>MONTANT</th>
+          <th>HEURE TRANSACTION</th>
+          <th>DATE TRANSACTION</th>
+          <th>RRN</th>
+          <th>RESPONSE CODE</th>
+          <th>TERMINAL</th>
+          <th>DEVISE</th>
+          <th>CREER LE</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let msg of messages">
+          <td>{{ msg.id }}</td>
+          <td>{{ msg.mti }}</td>
+          <td>{{ msg.pan }}</td>
+          <td>{{ msg.processingCode }}</td>
+          <td>{{ msg.montant | number:'1.0-0' }}</td>
+          <td>{{ msg.transactionTime }}</td>
+          <td>{{ msg.transactionDate | date: 'dd-MM-yyyy'}}</td>
+          <td>{{ msg.rrn }}</td>
+          <td>{{ msg.responseCode }}</td>
+          <td>{{ msg.terminalId }}</td>
+          <td>{{ msg.devise }} ({{ getCurrencyLabel(msg.devise) }})</td>
+          <td>{{ msg.createdAt | date: 'dd-MM-yyyy à HH\'H\'mm' }}</td>
+
+          <td>
+            <button class="btn btn-outline-info btn-sm me-1" (click)="showDetails(msg)">🔍</button>
+            <button class="btn btn-outline-danger btn-sm" (click)="deleteMessage(msg.id)" title="Supprimer ce message">
+              🗑
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div *ngIf="!loading && !messages.length" class="text-center text-muted py-3">
+      Aucun message ISO disponible.
+    </div>
+
+    <!-- Pagination -->
+    <nav aria-label="Pagination" class="d-flex justify-content-center mt-4">
+      <ul class="pagination">
+        <li class="page-item" [class.disabled]="page === 0">
+          <button class="page-link" (click)="prevPage()" [disabled]="page === 0">← Précédent</button>
+        </li>
+        <li class="page-item disabled">
+          <span class="page-link">Page {{ page + 1 }} / {{ totalPages }}</span>
+        </li>
+        <li class="page-item" [class.disabled]="page >= totalPages - 1">
+          <button class="page-link" (click)="nextPage()" [disabled]="page >= totalPages - 1">Suivant →</button>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
+
