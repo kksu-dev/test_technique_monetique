@@ -14,6 +14,8 @@ import com.dbs.iso8583parser.util.AESUtil;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import org.springframework.data.domain.Sort;
+
 @SecurityRequirement(name = "basicAuth")
 @RestController
 @RequestMapping("/api/messages")
@@ -49,8 +51,10 @@ public class ISOMessageController {
     @GetMapping
     public ResponseEntity<Map<String, Object>> list(@RequestParam(defaultValue = "0") int page,
                                                     @RequestParam(defaultValue = "10") int size) {
-        Page<ISOMessage> messages = repository.findAll(PageRequest.of(page, size));
-
+        //Page<ISOMessage> messages = repository.findAll(PageRequest.of(page, size));
+        Page<ISOMessage> messages = repository.findAll(
+                PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"))
+        );
         // Parcours des messages pour décrypter le pan
         messages.getContent().forEach(msg -> {
             if (msg.getPan() != null && !msg.getPan().isEmpty()) {
