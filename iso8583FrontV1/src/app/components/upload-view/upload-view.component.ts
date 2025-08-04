@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, ElementRef, ViewChild} from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {DatePipe, DecimalPipe, NgForOf, NgIf} from '@angular/common';
 import Swal from 'sweetalert2';
@@ -17,6 +17,7 @@ import {IsoMessage, UploadServiceService} from '../../services/upload-service.se
   styleUrls: ['./upload-view.component.css']
 })
 export class UploadViewComponent {
+  @ViewChild('fileInput') fileInput!: ElementRef;
   selectedFile: File | null = null;
   fileContent: string = '';
   parsedFields: { id: number; label: string; value: string }[] = [];
@@ -141,7 +142,7 @@ export class UploadViewComponent {
   }
 
   //Fonction pour uploader le fichier et l'enrregistrer dans la BD
-  onUpload(): void {
+  onUpload(inputElement: HTMLInputElement): void {
     if (!this.selectedFile) return;
 
     this.uploadService.uploadFile(this.selectedFile).subscribe({
@@ -151,7 +152,9 @@ export class UploadViewComponent {
         this.response = res.data;
         this.selectedFile = null;
 
-        this.loadMessages(); // recharger la liste
+        this.loadMessages();
+        this.fileInput.nativeElement.value = '';
+        inputElement.value= ''
         Swal.fire({
           icon: 'success',
           title: 'Fichier envoyé',
@@ -170,6 +173,12 @@ export class UploadViewComponent {
         });
       }
     });
+  }
+
+  //Fonction pour annuler l'entrée
+  onCancel(inputElement: HTMLInputElement): void {
+    inputElement.value = ''; // vider le champ input
+    this.selectedFile = null; // vider la variable
   }
 
   //Fonction pour afficher le detail d'un message ISO par son ID

@@ -1,39 +1,33 @@
 <div class="container-fluid">
-  <div class="text-center mt-5" style="z-index: 2;">
-    <h1 class="fw-bold fs-3">Analysez vos fichiers ISO 8583</h1>
-    <p class="text-secondary fs-6">
-      Le format ISO 8583 est utilisé pour les transactions monétiques, comme celles effectuées par carte bancaire.
-    </p>
-    <p class="fst-italic text-muted fs-6">
-      Grâce à cet outil, vous pouvez uploader un fichier ISO et visualiser les données internes.<br/>
-      <strong>Simple, rapide, efficace.</strong>
-    </p>
-  </div>
-
-  <div class="row mt-5">
-    <div class="col-md-4" style="min-height: 350px;">
-      <div class="position-relative p-0">
-        <div
-          class="background-blur"
-        >
-        </div>
-      </div>
+    <div class="text-center mt-5" style="z-index: 2;">
+      <h1 class="fw-bold fs-3">Analysez vos fichiers ISO 8583</h1>
+      <p class="text-secondary fs-6">
+        Le format ISO 8583 est utilisé pour les transactions monétiques, comme celles effectuées par carte bancaire.
+      </p>
+      <p class="fst-italic text-muted fs-6">
+        Grâce à cet outil, vous pouvez uploader un fichier ISO et visualiser les données internes.<br/>
+        <strong>Simple, rapide, efficace.</strong>
+      </p>
     </div>
 
-    <div class="col-md-8">
+
+  <div class="row mt-5">
+
+
+    <div class="col-md-12">
 
       <div class="card shadow-sm p-4 mb-0">
         <h2 class="mb-4 text-primary text-center">Uploader un fichier ISO 8583</h2>
 
         <div class="mb-3">
           <label for="fileInput" class="form-label fw-semibold">Sélectionnez un fichier ISO :</label>
-          <input id="fileInput" type="file" class="form-control" (change)="onFileSelected($event)"/>
+          <input #fileInput id="fileInput" type="file" class="form-control" (change)="onFileSelected($event)"/>
         </div>
 
         <div class="row mt-4" *ngIf="selectedFile">
           <div class="col-md-6">
             <h5>Aperçu brut :</h5>
-            <pre class="bg-light p-3 rounded border overflow-auto" style="max-height: 300px;">{{ fileContent }}</pre>
+            <pre class="bg-light p-3 rounded border overflow-auto" style="max-height: 300px; font-size: 13px">{{ fileContent }}</pre>
           </div>
 
           <div class="col-md-6" *ngIf="parsedFields.length">
@@ -59,13 +53,30 @@
           </div>
         </div>
 
-        <button class="btn btn-primary mt-2" (click)="onUpload()" [disabled]="!selectedFile">
-          📎 Envoyer
-        </button>
+
+        <div class="d-flex gap-2 mt-2">
+          <button
+            class="btn btn-success"
+            (click)="onUpload(fileInput)"
+            [disabled]="!selectedFile"
+          >
+            📎 Envoyer
+          </button>
+
+          <button
+            class="btn btn-outline-danger"
+            (click)="onCancel(fileInput)"
+            [disabled]="!selectedFile"
+          >
+            ❌ Annuler
+          </button>
+        </div>
+
 
       </div>
 
     </div>
+
   </div>
 
   <div class="card shadow-sm p-4 mt-5 mb-5">
