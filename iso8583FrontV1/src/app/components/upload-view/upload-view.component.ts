@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {DatePipe, DecimalPipe, NgForOf, NgIf} from '@angular/common';
 import Swal from 'sweetalert2';
 import {IsoMessage, UploadServiceService} from '../../services/upload-service.service';
+import {NgxFileDropComponent, NgxFileDropEntry} from 'ngx-file-drop';
+import {FileDropModule} from '../../../file-drop.module';
 
 @Component({
   selector: 'app-upload-view',
@@ -11,7 +13,8 @@ import {IsoMessage, UploadServiceService} from '../../services/upload-service.se
     NgIf,
     NgForOf,
     DecimalPipe,
-    DatePipe
+    DatePipe,
+    FileDropModule
   ],
   templateUrl: './upload-view.component.html',
   styleUrls: ['./upload-view.component.css']

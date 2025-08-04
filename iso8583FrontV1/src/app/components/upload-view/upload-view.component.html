@@ -2,9 +2,6 @@
     <div class="text-center mt-5" style="z-index: 2;">
       <h1 class="fw-bold fs-3">Analysez vos fichiers ISO 8583</h1>
       <p class="text-secondary fs-6">
-        Le format ISO 8583 est utilisé pour les transactions monétiques, comme celles effectuées par carte bancaire.
-      </p>
-      <p class="fst-italic text-muted fs-6">
         Grâce à cet outil, vous pouvez uploader un fichier ISO et visualiser les données internes.<br/>
         <strong>Simple, rapide, efficace.</strong>
       </p>
@@ -19,10 +16,24 @@
       <div class="card shadow-sm p-4 mb-0">
         <h2 class="mb-4 text-primary text-center">Uploader un fichier ISO 8583</h2>
 
-        <div class="mb-3">
+        <div class="mb-3 drop-zone">
           <label for="fileInput" class="form-label fw-semibold">Sélectionnez un fichier ISO :</label>
           <input #fileInput id="fileInput" accept=".xml" type="file" class="form-control" (change)="onFileSelected($event)"/>
         </div>
+
+
+        <!--<ngx-file-drop (onFileDrop)="onFileDropped($event)">
+          <ng-template ngx-file-drop-content-tmp>
+            <div class="drop-zone" (click)="triggerFileInput()">
+              <p>🖱 Clique ou 🤏 Glisse-dépose ton fichier ici</p>
+              <p><small>(XML uniquement, bien sûr 😎)</small></p>
+            </div>
+          </ng-template>
+        </ngx-file-drop>
+
+        <input #fileInput type="file" accept=".xml" (change)="onFileSelected($event)" hidden />-->
+
+
 
         <div class="row mt-4" *ngIf="selectedFile">
           <div class="col-md-6">

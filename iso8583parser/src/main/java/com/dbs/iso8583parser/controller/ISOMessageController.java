@@ -18,7 +18,7 @@ import org.springframework.data.domain.Sort;
 
 @SecurityRequirement(name = "basicAuth")
 @RestController
-@RequestMapping("/api/messages")
+@RequestMapping("/api/v1/messages")
 public class ISOMessageController {
 
     @Autowired
