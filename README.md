@@ -1,5 +1,5 @@
 # test_technique_monetique
-## 📚 Présentation
+## Présentation
 
 Ce projet a pour objectif de permettre l’**upload**, le **parsing**, le **chiffrement/déchiffrement** et la **visualisation** des messages ISO 8583.
 
@@ -36,17 +36,25 @@ public InMemoryUserDetailsManager userDetailsService() {
     return new InMemoryUserDetailsManager(user);
 }
 ```
+En angular j'ai fait passer les accés dans le header pour se connecter aux APIS
+```angular
+private getAuthHeaders(): HttpHeaders {
+return new HttpHeaders({
+'Authorization': 'Basic ' + btoa('admin:admin@2025')
+});
+}
+```
 ### Chiffrement du PAN
-- J'ai utilisé AES avec la configuration ECB et PKCS5Padding
-## 📌 Lien du projet
+- J'ai utilisé AES avec la configuration ECB et PKCS5Padding pour chiffrer et dechiffrer le PAN
+##  Lien du projet
 
 Le lien du code source est disponible sur mon repo GitHub public :  
-🔗 [https://github.com/kksu-dev/test_technique_monetique.git](https://github.com/kksu-dev/test_technique_monetique.git)
+ [https://github.com/kksu-dev/test_technique_monetique.git](https://github.com/kksu-dev/test_technique_monetique.git)
 
-## 📘 Swagger UI
+##  Swagger UI
 La documentation des APIs est disponible à cette adresse une fois le backend lancé :
 
-👉 `http://localhost:8080/swagger-ui/index.html`
+`http://localhost:8080/swagger-ui/index.html`
 
 ## Les éléments d’authentification à l’API
 ``` 
@@ -60,6 +68,12 @@ BD = ISO8583_BD
 url = jdbc:postgresql://localhost:5432/ISO8583_BD
 username = admin
 password = admin
+
+
+spring.jpa.hibernate.ddl-auto=update 
+
+Activation hibernate pour mettre à jour automatiquement le schéma de la base de données 
+en fonction de mes entités JPA à chaque démarrage de l’application.
 ```
 ## Création et Import du schéma de base de donnée
 ``` 
@@ -78,11 +92,11 @@ iso8583_bd.sql = Contient les commandes SQL à executer
 ```
 ---
 
-## 🚀 Lancer le projet localement
+## Exécution et deploiement du projet localement
 
 ### 🔧 Prérequis
 - Java 17 ou plus
-- Node.js (v18 recommandé)
+- Node.js (v18 ou plus)
 - Angular CLI (npm install -g @angular/cli)
 - PostgreSQL
 - Maven
@@ -100,5 +114,5 @@ git clone https://github.com/kksu-dev/test_technique_monetique.git
       - npm install 
       - ng serve
 
-
+Application disponible en local sur : http://localhost:4200/
 
