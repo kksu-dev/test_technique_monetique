@@ -3,7 +3,7 @@
 
 Ce projet a pour objectif de permettre l’**upload**, le **parsing**, le **chiffrement/déchiffrement** et la **visualisation** des messages ISO 8583.
 
-## 🛠️ Stack technique
+##  Stack technique
 
 ### Backend - Java Spring Boot
 - Spring Web
@@ -12,7 +12,7 @@ Ce projet a pour objectif de permettre l’**upload**, le **parsing**, le **chif
 - Basic Authentication
 - AES Encryption (ECB/PKCS5Padding)
 
-### 💻 Frontend - Angular
+### Frontend - Angular
 - Angular 17
 - Bootstrap
 - SweetAlert2 (confirmation et alertes utilisateurs)
@@ -20,7 +20,7 @@ Ce projet a pour objectif de permettre l’**upload**, le **parsing**, le **chif
 
 ---
 
-## 🔐 Sécurité
+## Sécurité
 
 ### Authentification HTTP Basic
 
@@ -94,7 +94,7 @@ iso8583_bd.sql = Contient les commandes SQL à executer
 
 ## Exécution et deploiement du projet localement
 
-### 🔧 Prérequis
+### Prérequis
 - Java 17 ou plus
 - Node.js (v18 ou plus)
 - Angular CLI (npm install -g @angular/cli)
